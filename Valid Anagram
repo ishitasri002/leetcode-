@@ -1,0 +1,41 @@
+class Solution(object):
+    def isAnagram(self, s, t):
+        if len(s) != len(t):
+            return False
+        
+        char_count = {} # create the hash amp with the help of dictionary in the python
+        
+        # Count characters in s and make the hash map for the s example 
+        # a=3, n=1, g=1. if char_count[char] alread in the hash table increase by 1.
+        for char in s:
+            if char in char_count:
+                char_count[char] += 1
+            else:
+                char_count[char] = 1
+        
+        # Compare with characters in t and use same hash table created by the s,
+        # if char_count[char] already in hash table created by s then decrease by 1
+        # untill it reaches 0, if it reaches 0 then it menas they are equal, and if it become
+        # 0 delete the char_count[char] from the table
+        for char in t:
+            if char in char_count:
+                char_count[char] -= 1
+                if char_count[char] == 0:
+                    del char_count[char]
+            else:
+                return False
+        
+        # If char_count hash table is empty,it means that all char were equal, s and t 
+        # are anagrams
+        return len(char_count) == 0 # determines i a function is anagram or not important
+
+# Example usage:
+sol = Solution()
+
+s = "anagram"
+t = "nagaram"
+print(sol.isAnagram(s, t))  
+
+s = "cat"
+t = "rat"
+print(sol.isAnagram(s, t))  
