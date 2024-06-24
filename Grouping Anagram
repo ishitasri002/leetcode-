@@ -1,0 +1,27 @@
+class Solution(object):
+    def groupAnagrams(self, strs):
+        res = {}  # dictionary to group them together
+
+        for s in strs:
+            char_count = [0] * 26  # list 
+            #[000000000-26]
+
+            # give index to each char in s example a=0,b=1,c=2,d=3,e=4
+            for char in s:
+                char_count[ord(char) - ord('a')] += 1
+
+            # Convert list to tuple to use as dictionary key as list key is 
+            # mutable and 
+            # dictionary doesnt uses mutable keys so we convert them to tuple
+            key = tuple(char_count)
+
+            # Group strings with the same key together in the dictionary
+            if key in res:
+                res[key].append(s) #append it with the char with same key
+            else:
+                res[key] = [s] #new entry
+
+        return list(res.values())
+
+sol = Solution()
+print(sol.groupAnagrams(["eat", "tea", "tan", "ate", "nat", "bat"]))
