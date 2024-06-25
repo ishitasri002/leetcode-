@@ -1,0 +1,26 @@
+class Solution(object):
+    def topKFrequent(self, nums, k):
+        num_count = {}
+
+        # Step 1: Count frequency of each element by creatinh hashmap
+        for num in nums:
+            if num in num_count:
+                num_count[num] += 1 
+            else:
+                num_count[num] = 1
+
+        # Step 2: Sort the dictionary by  changing it to list like 
+        # {3;4,4:2,2:1} now it is [(3,4),($,2),(2,1)]
+        # values in descending order 
+        # lambda x:x[1] sort by the key value in hash map 
+        sorted_nums = sorted(num_count.items(), key=lambda x: x[1], reverse=True)
+
+        # Step 3: Extract the top k frequent elements sorted_nums[0][0] gives 1
+        # sorted_nums[1][0] gives 2, If k = 2
+        result = [sorted_nums[i][0] for i in range(k)]
+        
+        return result
+
+
+sol = Solution()
+print(sol.topKFrequent([1, 1, 2, 3, 4], 2))
