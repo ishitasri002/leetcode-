@@ -1,0 +1,16 @@
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        start = 0 
+        check = set()
+        res = 0
+
+        for end in range(len(s)):
+            while s[end] in check:
+                check.remove(s[start])
+                start +=1 
+                # end pointer going from start +1 till s-1
+            check.add(s[end])
+            res = max(res, end - start + 1)  #window size
+        return res
+
+
