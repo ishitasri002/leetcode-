@@ -1,0 +1,41 @@
+class Solution(object):
+    def checkInclusion(self, s1, s2):
+        len1 = len(s1)
+        len2 = len(s2)
+        if len1 > len2:
+            return False
+            # as if s1 is longer than s2, it cannot 
+            # be permutation of s1
+        
+        # Frequency counts of characters in s1
+        count1 = {}
+        for char in s1:
+            if char not in count1:
+                count1[char] = 1
+            else:
+                count1[char] += 1
+        
+        # Frequency counts for the sliding window in s2
+        count2 = {}
+        start = 0
+        
+        for end in range(len2):
+            char = s2[end]
+            if char not in count2:
+                count2[char] = 1
+            else:
+                count2[char] += 1
+            
+            # Ensure the window size does not exceed len1
+            if end >= len1:
+                left_char = s2[end - len1]
+                if count2[left_char] == 1:
+                    del count2[left_char]
+                else:
+                    count2[left_char] -= 1
+            
+            # Compare the frequency counts for the current window and s1
+            if count1 == count2:
+                return True
+        
+        return False
