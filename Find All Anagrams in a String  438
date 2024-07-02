@@ -1,0 +1,50 @@
+class Solution(object):
+    def findAnagrams(self, s, p):
+        len_p = len(p)
+        len_s = len(s)
+        if len_p > len_s:
+            return []
+
+        p_count = {}
+        s_count = {}
+        result = []
+        
+        # Initialize p_count with the frequency of characters in p
+        for char in p:
+            if char not in p_count:
+                p_count[char] = 1
+            else:
+                p_count[char] += 1
+        
+        # Initialize s_count with the frequency of characters in the first window
+        for i in range(len_p):
+            if s[i] not in s_count:
+                s_count[s[i]] = 1
+            else:
+                s_count[s[i]] += 1
+        
+        # Compare the first window
+        if s_count == p_count:
+            result.append(0)
+        
+        # Slide the window across the rest of s
+        for i in range(len_p, len_s):
+            new_char = s[i]
+            old_char = s[i - len_p]
+            
+            # Add the new character to the window
+            if new_char not in s_count:
+                s_count[new_char] = 1
+            else:
+                s_count[new_char] += 1
+            
+            # Remove the old character from the window
+            s_count[old_char] -= 1
+            if s_count[old_char] == 0:
+                del s_count[old_char]
+            
+            # Compare the current window with p_count
+            if s_count == p_count:
+                result.append(i - len_p + 1)
+        
+        return result
