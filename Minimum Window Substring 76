@@ -1,0 +1,44 @@
+class Solution(object):
+    def minWindow(self, s, t):
+        # Hash map to store the count of each character in t
+        count = {}
+        for char in t:
+            if char in count:
+                count[char] += 1
+            else:
+                count[char] = 1
+        
+        l = 0  # Left pointer of the sliding window
+        min_len = float("inf")  # Initialize minimum window length to infinity
+        min_window = ""  # To store the minimum window substring
+        formed = 0  # Number of unique characters in the current window that match the required count
+        required = len(t)  # Total number of characters to match (including duplicates)
+
+        # Iterate over the string with the right pointer
+        for r in range(len(s)):
+            char = s[r]  # Current character in the sliding window
+
+            # If the character is in the hash map, update the count
+            if char in count:
+                count[char] -= 1
+                # If the character count is still non-negative, increment the formed counter
+                if count[char] >= 0:
+                    formed += 1
+
+            # While the current window is valid
+            while l <= r and formed == required:
+                # Update the minimum window substring
+                if r - l + 1 < min_len:
+                    min_len = r - l + 1
+                    min_window = s[l:r + 1]
+                
+                # Remove the leftmost character from the window
+                left_char = s[l]
+                if left_char in count:
+                    count[left_char] += 1
+                    if count[left_char] > 0:
+                        formed -= 1
+                
+                l += 1  # Move the left pointer to shrink the window
+        
+        return min_window if min_len != float("inf") else ""
