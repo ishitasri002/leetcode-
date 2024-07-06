@@ -1,0 +1,23 @@
+class Solution(object):
+    @staticmethod
+    def searchMatrix(matrix, target):
+        
+        
+        n, m = len(matrix), len(matrix[0])
+        low, high = 0, n * m - 1
+
+        while low <= high:
+            mid = (low + high) // 2
+            row = mid // m  # Convert 1D array position to 2D row
+            col = mid % m   # Convert 1D array position to 2D column
+            mid_value = matrix[row][col]
+
+            if mid_value == target:
+                return True
+            elif mid_value < target:
+                low = mid + 1
+            else:
+                high = mid - 1
+
+        return False
+ 
