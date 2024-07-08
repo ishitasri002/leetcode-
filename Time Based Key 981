@@ -19,7 +19,7 @@ class TimeMap(object):
             return ""
         values = self.store[key]
         # retrieve all values and timetstamp of the key list
-        for value, ts in reversed(values): # binary search to find most last or rightmost ts like in diary end will be most recent one 
+        for value, ts in reversed(values): # search to find most last or rightmost ts like in diary end will be most recent one 
             if ts <= timestamp:
                 return value 
      
