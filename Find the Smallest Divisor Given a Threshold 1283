@@ -1,0 +1,17 @@
+class Solution(object):
+    def smallestDivisor(self, nums, threshold):
+        def compute_sum(divisor):
+            return sum((num + divisor - 1) // divisor for num in nums)  
+        
+        low, high = 1, max(nums)
+
+        while low < high:
+            mid = (low + high) // 2
+            total_sum = compute_sum(mid)
+
+            if total_sum <= threshold:
+                high = mid
+            else:
+                low = mid + 1
+        
+        return low
