@@ -1,0 +1,29 @@
+class TimeMap(object):
+
+    def __init__(self):
+        self.store = {} #dictionary create to store the 
+        # values, keys, timestamo etc
+
+        
+
+    def set(self, key, value, timestamp):
+
+        if key not in self.store:
+            self.store[key] = []
+        self.store[key].append((value,timestamp))  
+    
+
+
+    def get(self, key, timestamp):
+        if key not in self.store:
+            return ""
+        values = self.store[key]
+        # retrieve all values and timetstamp of the key list
+        for value, ts in reversed(values): # binary search to find most last or rightmost ts like in diary end will be most recent one 
+            if ts <= timestamp:
+                return value 
+     
+            
+        return ""
+        
+
