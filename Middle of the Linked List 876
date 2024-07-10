@@ -1,0 +1,21 @@
+class ListNode(object):
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+class Solution(object):
+    def middleNode(self, head):
+        current_node = head  # Start from the head of the list
+        count = 0  # Initialize a counter to keep track of the number of nodes
+
+        while current_node:
+            count += 1  # Increment the counter for each node
+            current_node = current_node.next  # Move to the next node
+
+        middle_index = count // 2  # Compute the index of the middle node
+        current_node = head  # Reset to the head of the list
+
+        for _ in range(middle_index):  # Traverse to the middle node
+            current_node = current_node.next
+
+        return current_node  # Return the middle node
