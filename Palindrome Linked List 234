@@ -21,8 +21,10 @@ class Solution(object):
         # Step 1: Find the middle of the linked list
         slow = head 
         fast = head
-        while fast and fast.next:
-            slow = slow.next 
+        while fast and fast.next: # fast pointer goes till the end when fast next is none it will stop 
+            slow = slow.next
+#The slow pointer moves at half the speed of the fast pointer.
+#When the fast pointer reaches the end of the list, the slow pointer will be at the middle.
             fast = fast.next.next
         
         # Step 2: Reverse the second half of the linked list
