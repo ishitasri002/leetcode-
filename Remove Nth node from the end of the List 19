@@ -1,0 +1,23 @@
+class ListNode(object):
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+class Solution(object):
+    def removeNthFromEnd(self, head, n):
+        length = 0  # Corrected spelling: "length"
+        current = head 
+        while current:
+            length += 1  # Corrected spelling: "length"
+            current = current.next 
+
+        if n == length:  # Handle the special case where we need to remove the head node
+            return head.next  # Removing the head node, so the new head is the next node
+
+        current = head
+        for i in range(length - n - 1):  # Traverse to the node just before the one to be removed
+            current = current.next 
+        
+        current.next = current.next.next  # Corrected typo and fixed the syntax error
+
+        return head
