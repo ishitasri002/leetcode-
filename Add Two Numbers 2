@@ -1,0 +1,31 @@
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+        
+class Solution:
+    def addTwoNumbers(self, l1, l2):
+        dummyLinked = ListNode(0)
+        current = dummyLinked 
+        current1 = l1 
+        current2 = l2 
+        carry = 0 
+
+        while current1 or current2 or carry:
+            sum_val = carry 
+
+            if current1:
+                sum_val += current1.val
+                current1 = current1.next 
+
+            if current2:
+                sum_val += current2.val
+                current2 = current2.next 
+
+            carry = sum_val // 10 
+            sum_val = sum_val % 10 
+
+            current.next = ListNode(sum_val)
+            current = current.next 
+        
+        return dummyLinked.next
