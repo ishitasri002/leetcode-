@@ -1,0 +1,13 @@
+class Solution(object):
+    def findDuplicate(self, nums):
+        count = {}
+
+        for num in nums:
+            if num in count:
+                return num
+            else:
+                count[num] = 1 
+        
+        return -1
+
+ 
