@@ -1,0 +1,17 @@
+class Solution(object):
+    def isValid(self, s):
+        stack = []
+        matching_parenthesis = {')':'(','}':'{',']':'['}
+        
+        for char in s:
+            if char in matching_parenthesis.values():
+                stack.append(char)
+            elif char in matching_parenthesis.keys():
+                if stack == [] or matching_parenthesis[char] != stack.pop():
+                    return False
+            else:
+                return False
+        return stack == []
+    
+            
+                
