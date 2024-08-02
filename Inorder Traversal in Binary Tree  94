@@ -1,0 +1,18 @@
+class TreeNode(object):
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+class Solution(object):
+    def inorderTraversal(self, root):
+        result = []
+        
+        def _inorder(node):
+            if node:
+                _inorder(node.left)         # Traverse left subtree
+                result.append(node.val)     # Visit the root node
+                _inorder(node.right)        # Traverse right subtree
+        
+        _inorder(root)
+        return result
