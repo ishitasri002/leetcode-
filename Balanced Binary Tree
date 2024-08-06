@@ -1,18 +1,3 @@
-# Intuition
-<!-- Describe your first thoughts on how to solve this problem. -->
-
-# Approach
-<!-- Describe your approach to solving the problem. -->
-
-# Complexity
-- Time complexity:
-<!-- Add your time complexity here, e.g. $$O(n)$$ -->
-
-- Space complexity:
-<!-- Add your space complexity here, e.g. $$O(n)$$ -->
-
-# Code
-```
 class TreeNode(object):
     def __init__(self, val=0, left=None, right=None):
         self.val = val
@@ -21,46 +6,21 @@ class TreeNode(object):
 
 class Solution(object):
     def isBalanced(self, root):
-        """
-        :type root: TreeNode
-        :rtype: bool
-        """
-        if not root:
-            return True
-        
-        # Stack to store nodes and their heights
-        stack = []
-        # Dictionary to store node heights
-        heights = {}
-        # Dictionary to track if a node's balance has been checked
-        visited = set()
-        
-        # Start with the root node
-        stack.append((root, False))
-        
-        while stack:
-            node, is_visited = stack.pop()
+        def check_height(node):
+            if not node:
+                return 0
             
-            if node is None:
-                # Null nodes are balanced and have height 0
-                heights[node] = 0
-                continue
+            left_height = check_height(node.left)
+            if left_height == -1:
+                return -1  # Left subtree is not balanced
             
-            if is_visited:
-                # Post-order action
-                left_height = heights.get(node.left, 0)
-                right_height = heights.get(node.right, 0)
-                
-                if abs(left_height - right_height) > 1:
-                    return False
-                
-                heights[node] = max(left_height, right_height) + 1
-            else:
-                # Pre-order action
-                stack.append((node, True))
-                stack.append((node.left, False))
-                stack.append((node.right, False))
+            right_height = check_height(node.right)
+            if right_height == -1:
+                return -1  # Right subtree is not balanced
+            
+            if abs(left_height - right_height) > 1:
+                return -1  # Current node is not balanced
+            
+            return max(left_height, right_height) + 1
         
-        return True
-
-```
+        return check_height(root) != -1
